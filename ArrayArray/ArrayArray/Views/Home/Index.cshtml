@@ -1,0 +1,128 @@
+﻿@{
+    ViewBag.Title = "Home Page";
+}
+
+<script src="~/Scripts/jquery-1.10.2.min.js"></script>
+<script lang="javascript" src="http://cdnjs.cloudflare.com/ajax/libs/knockout/2.3.0/knockout-min.js"></script>
+<script lang="javascript" src="http://cdnjs.cloudflare.com/ajax/libs/knockout.mapping/2.3.5/knockout.mapping.js"></script>
+<script lang="javascript" src="http://cdnjs.cloudflare.com/ajax/libs/knockout-validation/1.0.2/knockout.validation.min.js"></script>
+<script lang="javascript" src="https://rawgithub.com/rniemeyer/knockout-sortable/master/build/knockout-sortable.js"></script>
+<script lang="javascript" src="http://cdnjs.cloudflare.com/ajax/libs/jqueryui/1.10.4/jquery-ui.js"></script>
+<script lang="javascript" src="http://cdnjs.cloudflare.com/ajax/libs/amplifyjs/1.1.0/amplify.js"></script>
+<script lang="javascript" src="~/Scripts/NestedArrayScript.js"></script>
+
+<div class=" row">
+    <div class="col-md-10">
+        <h2>Array Array!</h2>
+        <p>
+            nested arrays/MVC/KnockoutJS
+        </p>
+        <br/>
+
+        Action items:
+        <a href="#" data-bind="click: loadStorageData">Load from storage</a>
+        <a href="#" data-bind="click: loadInlineData">Load from inline model</a>
+        <a href="#" data-bind="click: saveData">Save to storage</a>
+        <a href="#" data-bind="click: clearData">Clear data</a>
+        <a href="#" data-bind="click: saveDataToInput">Save to JSON (to inputbox)</a>
+        <a href="#" data-bind="click: saveData">Save test</a>
+        <a href="#" data-bind="click: saveDataToServer">Save to server</a>
+        <a href="#" data-bind="click: checkValid">Check is valid</a>
+
+        <br />
+        <br />Sales person<br />
+        First name:
+        <input data-bind="value:FirstName" />
+        <br />
+        Last name:
+        <input data-bind="value:LastName" />
+        <div data-bind="visible:FullName.length > 0">
+            Salesperson full name:
+            <span data-bind="text:FullName"></span>
+        </div>
+        <br />Regions:
+        <br />
+        <br />
+
+        <a href="#" data-bind="click: addRegion">Region +</a>   <br />
+        Region count: <span data-bind="text:Regions().length"></span>
+        <br /> <br />
+        <a href="#" data-bind="click: addCustomer">Customer +</a> <br />
+        Customer count: <span data-bind="text:Customers().length"></span>
+
+        <div data-bind="sortable:Regions">
+            <div class="Regionbox">
+                Region:
+                <span style="float:right">
+                    Index: <span data-bind="text:$index"></span>
+                </span>
+                <input data-bind="value:Name" /> <a href="#" data-bind="click: $parent.removeRegion">x</a>
+            </div>
+
+        </div>
+
+        <br />
+        <div data-bind="foreach:Customers">
+            <div class="Customerbox">
+                Customer:
+                <input data-bind="value:Name" /> <a href="#" data-bind="click: $parent.removeCustomer">x</a>
+                <span style="float:right">
+                    Index: <span data-bind="text:$index"></span>
+                </span>
+                <a href="#" data-bind="click: addOrder">Order +</a>
+                <br />
+                <div data-bind="foreach:Orders">
+                    ---- Order date:
+                    <input data-bind="value:Date" />Value:
+                    <input data-bind="value:Value" /> <a href="#" data-bind="click: $parent.removeOrder">x</a>
+                    <br />
+                </div> <!-- foreach Orders -->
+            </div>
+        </div> <!-- foreach Customer -->
+
+        <div>
+            <hr>for clipboard:
+            <textarea id="clip" value="" cols="50" rows="10"></textarea>
+        </div>
+
+
+        <br />
+        <hr />
+
+    </div>
+
+</div>
+
+
+
+<pre data-bind="text: ko.toJSON($data, null, 2)"></pre>
+
+
+
+<style>
+    .errorCSS {
+        border: 1px solid red;
+        background-color: #FFFF00;
+    }
+
+    .Regionbox {
+        border: 1px solid gray;
+        background-color: #fdd;
+        padding: 5px;
+        cursor: move;
+        width: 200px;
+        padding: 5px;
+        margin: 5px;
+    }
+
+    .Customerbox {
+        border: 1px solid gray;
+        background-color: #C0C0C0;
+        padding: 5px;
+        cursor: move;
+        width: 600px;
+        padding: 3px;
+        margin: 3px;
+    }
+</style>
+
